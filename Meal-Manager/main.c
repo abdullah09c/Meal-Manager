@@ -9,6 +9,15 @@
 #include <limits.h>
 #include <conio.h>
 
+struct member
+{
+   char name[20];
+   double deposit;
+   double remaining;
+   double total_meal;
+   int sl;
+} add, view, update, edit, bazar;
+
 void loading(int time)
 {
    int i, j;
@@ -107,27 +116,96 @@ up:
    }
 }
 
-void view_meal()
+void view_total_meal()
 {
-   getch();
+up:
+   system("cls");
+   printf("------------------------------------------------------------\n");
+   printf("\t\t\tTotal Meal\n");
+   printf("------------------------------------------------------------\n\n");
+   printf("SL No.   Name");
+   int i;
+   for (i = 4; i < 30; i++)
+   {
+      printf(" ");
+   }
+   printf("Deposit \t Total Meal\n");
+   FILE *data = NULL;
+   data = fopen("data.dat", "r");
+   while (fscanf(data, "%d %s %lf %lf\n", &view.sl, view.name, &view.deposit, &view.total_meal) != EOF)
+   {
+      printf(" %d       %s", view.sl, view.name);
+      for (i = strlen(view.name); i < 30; i++)
+      {
+         printf(" ");
+      }
+      printf("%.2lf \t %.2lf\n", view.deposit, view.total_meal);
+   }
+
+   fclose(data);
+   printf("\n\nPress E to exit!");
+
+   char ch = getche();
+   if (ch == 'e')
+      return;
+   else
+      goto up;
 }
 
 void update_meal()
 {
    getch();
 }
+
 void add_member()
 {
-   getch();
+   system("cls");
+   system("color 4");
+   printf("Do not write name using space!");
+   getche();
+   new :
+
+       system("cls");
+   system("color 9");
+   printf("Enter Name : ");
+   scanf("%s", add.name);
+
+   // creating a file to store data.
+   FILE *data = NULL;
+   data = fopen("data.dat", "a+");
+   while (fscanf(data, "%d %s %lf %lf\n", &view.sl, view.name, &view.deposit, &view.total_meal) != EOF)
+   {
+      if (!strcmp(add.name, view.name))
+      {
+         system("cls");
+         system("color 4");
+         printf("This member already has in the list!\a");
+         getche();
+         goto new;
+      }
+   }
+
+   printf("Enter deposit : $");
+   scanf("%lf", &add.deposit);
+
+   fprintf(data, "%d %s %.2lf %.2lf\n", ++view.sl, add.name, add.deposit, view.total_meal);
+   fclose(data);
+   system("cls");
+   printf("Member is added successfully\n");
+   getche();
+   return;
 }
+
 void delete_member()
 {
    getch();
 }
+
 void add_bazar()
 {
    getch();
 }
+
 void view_bazar()
 {
    getch();
@@ -140,7 +218,7 @@ up:
    system("cls");
    printf("\t\t******************[Meal Manager]*****************\n");
    printf("\t    **********************************************************\n\n");
-   printf("\t1. View Meal\n");
+   printf("\t1. View Total Meal\n");
    printf("\t2. Update Meal\n");
    printf("\t3. Add New Member\n");
    printf("\t4. Delete Member\n");
@@ -151,17 +229,35 @@ up:
    char choice[100];
    scanf("%s", choice);
    if (!strcmp(choice, "1"))
-      view_meal();
+   {
+      view_total_meal();
+      goto up;
+   }
    else if (!strcmp(choice, "2"))
+   {
       update_meal();
+      goto up;
+   }
    else if (!strcmp(choice, "3"))
+   {
       add_member();
+      goto up;
+   }
    else if (!strcmp(choice, "4"))
+   {
       delete_member();
+      goto up;
+   }
    else if (!strcmp(choice, "5"))
+   {
       add_bazar();
+      goto up;
+   }
    else if (!strcmp(choice, "6"))
+   {
       view_bazar();
+      goto up;
+   }
    else if (!strcmp(choice, "7"))
       return;
    else
