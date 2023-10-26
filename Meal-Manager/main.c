@@ -40,43 +40,41 @@ up:
    FILE *new;
    new = fopen("new.dat", "w");
 
-   while (fscanf(old, "%s", pass) != EOF)
-      ;
+   fscanf(old, "%s", pass);
+
+   if (!strcmp(new_pass, pass))
    {
-      if (!strcmp(new_pass, pass))
+      system("cls");
+      printf("Enter New Password : \n");
+      scanf("%s", pass);
+      fprintf(new, "%s", pass);
+      fclose(old);
+      remove("pass.dat");
+      fclose(new);
+      rename("new.dat", "pass.dat");
+      system("cls");
+      system("color 2");
+      printf("Password Changed Successful!\n");
+      getch();
+      return;
+   }
+   else
+   {
+      fclose(old);
+      fclose(new);
+      remove("new.dat");
+      system("cls");
+      system("color 4");
+      printf("Password not matched!\a\n\n");
+      printf("Press any key to try again Or press E to goto homepage\n");
+      char ch;
+      ch = getche();
+      if (ch == 'e')
       {
-         system("cls");
-         printf("Enter New Password : \n");
-         scanf("%s", pass);
-         fprintf(new, "%s", pass);
-         fclose(old);
-         remove("pass.dat");
-         fclose(new);
-         rename("new.dat", "pass.dat");
-         system("cls");
-         system("color 2");
-         printf("Password Changed Successful!\n");
-         getch();
          return;
       }
       else
-      {
-         fclose(old);
-         fclose(new);
-         remove("new.dat");
-         system("cls");
-         system("color 4");
-         printf("Password not matched!\a\n\n");
-         printf("Press any key to try again Or press E to goto homepage\n");
-         char ch;
-         ch = getche();
-         if (ch == 'e')
-         {
-            return;
-         }
-         else
-            goto up;
-      }
+         goto up;
    }
 }
 
@@ -87,32 +85,31 @@ up:
    system("cls");
    printf("Enter Password : ");
    scanf("%s", s);
-   while (fscanf(password, "%s", pass) != EOF)
+   fscanf(password, "%s", pass);
+   if (strcmp(pass, s) == 0)
    {
-      if (strcmp(pass, s) == 0)
-      {
-         fclose(password);
-         system("cls");
-         system("color 2");
-         printf("Password Matched!\n");
-         // loading....
-         loading(4);
-         return 1;
-      }
+      fclose(password);
+      system("cls");
+      system("color 2");
+      printf("Password Matched!\n");
+      // loading....
+      loading(4);
+      return 1;
+   }
+   else
+   {
+      fclose(password);
+      system("cls");
+      system("color 4");
+      printf("Wrong Password!\a\n");
+      printf("Press any key to continue or Press E to goto homepage\n");
+      char ch;
+
+      ch = getche();
+      if (ch == 'e')
+         return 0;
       else
-      {
-         fclose(password);
-         system("cls");
-         system("color 4");
-         printf("Wrong Password!\a\n");
-         printf("Press any key to continue or Press E to goto homepage\n");
-         char ch;
-         ch = getche();
-         if (ch == 'e')
-            return 0;
-         else
-            goto up;
-      }
+         goto up;
    }
 }
 
