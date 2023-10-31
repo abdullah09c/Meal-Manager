@@ -1,17 +1,29 @@
 #include "bazar.h"
 
+void help()
+{
+   system("title Meal Manager");
+   system("cls");
+   system("color B");
+   printf("\t\t\t\tTIPS\n");
+   printf("\t---------------------------------------------------\n");
+   printf("\t-> To increase or decrease font size press Ctrl+Mouse Scroll\n");
+   printf("\t-> Press F11 for Fullscreen\n");
+   getche();
+}
+
 void welcome(int i)
 {
    FILE *acc = fopen("acc.dat", "r");
    int day;
    char name[30], date[30];
    fscanf(acc, "%d %s %s\n", &day, name, date);
-   if(day < 10)
-   printf("\tDATE : 0%d%s\n", day, date);
+   if (day < 10)
+      printf("\tDATE : 0%d%s\n", day, date);
    else
-   printf("\tDATE : %d%s\n", day, date);
-   if(i == 1)
-   printf("\tAssalamu Alaykum %s,\n\n", name);
+      printf("\tDATE : %d%s\n", day, date);
+   if (i == 1)
+      printf("\tAssalamu Alaykum %s,\n\n", name);
 }
 
 void loading(int time)
@@ -70,6 +82,7 @@ up:
 
 void account()
 {
+   help();
    system("cls");
    system("color 7");
    FILE *account_data = NULL, *password = NULL;

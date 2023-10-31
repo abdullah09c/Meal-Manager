@@ -1,0 +1,2 @@
+-> To increase or decrease font size press Ctrl+Mouse Scroll
+-> Press F11 for Fullscreen

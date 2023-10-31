@@ -38,7 +38,7 @@ up:
    printf("\t\t******************[Meal Manager]*****************\n");
    printf("\t    **********************************************************\n\n");
    welcome(0);
-   printf("\t1. View Today's Meal\n");
+   printf("\n\t1. View Today's Meal\n");
    printf("\t2. Manage Meal\n");
    printf("\t3. Manage Member\n");
    printf("\t4. Bazar\n");
@@ -145,11 +145,7 @@ top:
    }
    else if (!strcmp(s, "5"))
    {
-      system("cls");
-      system("color B");
-      printf("\t-> To increase or decrease font size press Ctrl+Mouse Scroll\n");
-      printf("\t-> Press F11 for Fullscreen\n");
-      getche();
+      help();
       goto top;
    }
    else if (!strcmp(s, "6"))
