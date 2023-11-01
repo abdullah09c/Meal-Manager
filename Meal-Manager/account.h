@@ -14,16 +14,13 @@ void help()
 
 void welcome(int i)
 {
-   FILE *acc = fopen("acc.dat", "r");
+   FILE *acc = fopen("data/acc.dat", "r");
    int day;
-   char name[30], date[30];
-   fscanf(acc, "%d %s %s\n", &day, name, date);
-   if (day < 10)
-      printf("\tDATE : 0%d%s\n", day, date);
-   else
-      printf("\tDATE : %d%s\n", day, date);
+   char name[30];
+   fscanf(acc, "%s", name);
+   printf("\tDATE : %s", date_fun());
    if (i == 1)
-      printf("\tAssalamu Alaykum %s,\n\n", name);
+      printf("\n\tAssalamu Alaykum %s,\n\n", name);
 }
 
 void loading(int time)
@@ -38,22 +35,25 @@ void loading(int time)
    }
 }
 
-void pass_change(FILE *password)
+void pass_change(FILE *password, int n)
 {
 up:
-   password = fopen("pass.dat", "r");
+   password = fopen("data/pass.dat", "r");
    char new_pass[25], pass[25];
    system("cls");
+   if (n == 0)
+      goto escape_pass;
    printf("Enter old password : \n");
    scanf("%s", new_pass);
    fscanf(password, "%s", pass);
 
    if (!strcmp(new_pass, pass))
    {
+   escape_pass:
       system("cls");
       printf("Enter New Password : \n");
       scanf("%s", pass);
-      password = fopen("pass.dat", "w");
+      password = fopen("data/pass.dat", "w");
       fprintf(password, "%s", pass);
       fclose(password);
       system("cls");
@@ -80,16 +80,40 @@ up:
    }
 }
 
+void forget_pass()
+{
+up:
+   char s[30], hobby[30];
+   system("cls");
+   printf("\n\tEnter Your Hobby : ");
+   scanf("%s", s);
+   FILE *forget = NULL;
+   forget = fopen("data/acc.dat", "r");
+   fscanf(forget, "%s %s\n", view.name, hobby);
+   fclose(forget);
+   if (!strcmp(s, hobby))
+   {
+      pass_change(forget, 0);
+   }
+   else
+   {
+      system("cls");
+      system("color 4");
+      printf("\n\tWrong Answer!\n\a");
+      getche();
+      goto up;
+   }
+}
+
 void account()
 {
    help();
    system("cls");
    system("color 7");
    FILE *account_data = NULL, *password = NULL;
-   account_data = fopen("acc.dat", "w");
+   account_data = fopen("data/acc.dat", "w");
    char pass[30];
-   char manager_name[30], date[30];
-   int day = 0;
+   char manager_name[30], recover[30];
    printf("\t\t\xb2\xb2\xb2\xb2\xb2\xb2\xb2\xb2Meal Manager\xb2\xb2\xb2\xb2\xb2\xb2\xb2\xb2\n\n");
 
    printf("\tCreate New Account\n");
@@ -98,14 +122,13 @@ void account()
    scanf("%s", manager_name);
    printf("\tEnter New Password : ");
    scanf("%s", pass);
-   printf("\tDate (DD/MM/YY) : ");
-   scanf("%2d", &day);
-   if (day > 31)
-      day -= '/';
-   scanf("%s", date);
-   password = fopen("pass.dat", "w");
+   printf("\tEnter Your Hobby (This will help you to recover forgotten password): ");
+   scanf("%s", recover);
+
+   password = fopen("data/pass.dat", "w");
    fprintf(password, "%s", pass);
-   fprintf(account_data, "%d %s %s\n", day, manager_name, date);
+
+   fprintf(account_data, "%s %s\n", manager_name, recover);
    fclose(password);
    fclose(account_data);
    system("cls");
@@ -132,9 +155,9 @@ there:
    {
       system("cls");
       loading(4);
-      remove("data.dat");
-      remove("meal.dat");
-      // remove("bazar.dat");
+      remove("data/data.dat");
+      remove("data/meal.dat");
+      remove("data/cost.dat");
       system("cls");
       printf("Remove all data Successfully!\n\a");
       getche();
@@ -159,11 +182,11 @@ there:
    {
       system("cls");
       loading(4);
-      remove("data.dat");
-      remove("meal.dat");
-      remove("acc.dat");
-      remove("pass.dat");
-      // remove("bazar.dat");
+      remove("data/data.dat");
+      remove("data/meal.dat");
+      remove("data/acc.dat");
+      remove("data/pass.dat");
+      remove("data/cost.dat");
       system("cls");
       printf("Removed Account Successfully!\n\a");
       getche();
@@ -180,7 +203,7 @@ int log_in(FILE *password)
 {
 up:
 
-   password = fopen("pass.dat", "r");
+   password = fopen("data/pass.dat", "r");
    char s[25], pass[25];
    system("cls");
    printf("Enter Password : ");
