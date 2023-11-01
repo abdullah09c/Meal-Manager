@@ -16,7 +16,7 @@ void add_member()
 
    // creating a file to store data.
    FILE *data = NULL;
-   data = fopen("data/data.dat", "a+");
+   data = fopen("data.dat", "a+");
    while (fscanf(data, "%d %s %lf %lf\n", &add.sl, add.name, &add.deposit, &add.total_meal) != EOF)
    {
       if (!strcmp(s, add.name))
@@ -53,8 +53,8 @@ up:
    scanf("%s", s);
    if (!strcmp(s, "e"))
       return;
-   FILE *data = fopen("data/data.dat", "r"), *new_data = NULL;
-   new_data = fopen("data/new_data.dat", "w");
+   FILE *data = fopen("data.dat", "r"), *new_data = NULL;
+   new_data = fopen("new_data.dat", "w");
    while (fscanf(data, "%d %s %lf %lf\n", &edit.sl, edit.name, &edit.deposit, &edit.total_meal) != EOF)
    {
       char sl[30];
@@ -71,8 +71,8 @@ up:
    fclose(new_data);
 
    // removing today's meal
-   FILE *meal = fopen("data/meal.dat", "r"), *new_meal = NULL;
-   new_meal = fopen("data/new_meal.dat", "w");
+   FILE *meal = fopen("meal.dat", "r"), *new_meal = NULL;
+   new_meal = fopen("new_meal.dat", "w");
    if (flag > 0)
    {
       double breakfast, launch, dinner;
@@ -97,17 +97,17 @@ up:
       system("cls");
       system("color 4");
       printf("\tMember doesn't exist\n\a");
-      remove("data/new_data.dat");
-      remove("data/new_meal.dat");
+      remove("new_data.dat");
+      remove("new_meal.dat");
       getche();
       goto up;
    }
    else
    {
-      remove("data/data.dat");
-      remove("data/meal.dat");
-      rename("data/new_data.dat", "data/data.dat");
-      rename("data/new_meal.dat", "data/meal.dat");
+      remove("data.dat");
+      remove("meal.dat");
+      rename("new_data.dat", "data.dat");
+      rename("new_meal.dat", "meal.dat");
       system("cls");
       printf("\tSuccessful!\n");
       getche();
@@ -128,8 +128,8 @@ void deposit()
       scanf("%s", s);
       if (!strcmp(s, "e"))
          return;
-      FILE *data = fopen("data/data.dat", "r"), *new_data = NULL;
-      new_data = fopen("data/new_data.dat", "w");
+      FILE *data = fopen("data.dat", "r"), *new_data = NULL;
+      new_data = fopen("new_data.dat", "w");
       while (fscanf(data, "%d %s %lf %lf\n", &edit.sl, edit.name, &edit.deposit, &edit.total_meal) != EOF)
       {
          char sl[30];
@@ -153,14 +153,14 @@ void deposit()
          system("cls");
          system("color 4");
          printf("\tMember doesn't exist\n\a");
-         remove("data/new_data.dat");
+         remove("new_data.dat");
          getche();
          goto up;
       }
       else
       {
-         remove("data/data.dat");
-         rename("data/new_data.dat", "data/data.dat");
+         remove("data.dat");
+         rename("new_data.dat", "data.dat");
          system("cls");
          printf("\tSuccessful!\n");
          getche();

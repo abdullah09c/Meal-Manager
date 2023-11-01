@@ -14,7 +14,7 @@ void help()
 
 void welcome(int i)
 {
-   FILE *acc = fopen("data/acc.dat", "r");
+   FILE *acc = fopen("acc.dat", "r");
    int day;
    char name[30];
    fscanf(acc, "%s", name);
@@ -38,7 +38,7 @@ void loading(int time)
 void pass_change(FILE *password, int n)
 {
 up:
-   password = fopen("data/pass.dat", "r");
+   password = fopen("pass.dat", "r");
    char new_pass[25], pass[25];
    system("cls");
    if (n == 0)
@@ -53,7 +53,7 @@ up:
       system("cls");
       printf("Enter New Password : \n");
       scanf("%s", pass);
-      password = fopen("data/pass.dat", "w");
+      password = fopen("pass.dat", "w");
       fprintf(password, "%s", pass);
       fclose(password);
       system("cls");
@@ -88,7 +88,7 @@ up:
    printf("\n\tEnter Your Hobby : ");
    scanf("%s", s);
    FILE *forget = NULL;
-   forget = fopen("data/acc.dat", "r");
+   forget = fopen("acc.dat", "r");
    fscanf(forget, "%s %s\n", view.name, hobby);
    fclose(forget);
    if (!strcmp(s, hobby))
@@ -111,7 +111,7 @@ void account()
    system("cls");
    system("color 7");
    FILE *account_data = NULL, *password = NULL;
-   account_data = fopen("data/acc.dat", "w");
+   account_data = fopen("acc.dat", "w");
    char pass[30];
    char manager_name[30], recover[30];
    printf("\t\t\xb2\xb2\xb2\xb2\xb2\xb2\xb2\xb2Meal Manager\xb2\xb2\xb2\xb2\xb2\xb2\xb2\xb2\n\n");
@@ -125,7 +125,7 @@ void account()
    printf("\tEnter Your Hobby (This will help you to recover forgotten password): ");
    scanf("%s", recover);
 
-   password = fopen("data/pass.dat", "w");
+   password = fopen("pass.dat", "w");
    fprintf(password, "%s", pass);
 
    fprintf(account_data, "%s %s\n", manager_name, recover);
@@ -155,9 +155,9 @@ there:
    {
       system("cls");
       loading(4);
-      remove("data/data.dat");
-      remove("data/meal.dat");
-      remove("data/cost.dat");
+      remove("data.dat");
+      remove("meal.dat");
+      remove("cost.dat");
       system("cls");
       printf("Remove all data Successfully!\n\a");
       getche();
@@ -182,11 +182,11 @@ there:
    {
       system("cls");
       loading(4);
-      remove("data/data.dat");
-      remove("data/meal.dat");
-      remove("data/acc.dat");
-      remove("data/pass.dat");
-      remove("data/cost.dat");
+      remove("data.dat");
+      remove("meal.dat");
+      remove("acc.dat");
+      remove("pass.dat");
+      remove("cost.dat");
       system("cls");
       printf("Removed Account Successfully!\n\a");
       getche();
@@ -203,7 +203,7 @@ int log_in(FILE *password)
 {
 up:
 
-   password = fopen("data/pass.dat", "r");
+   password = fopen("pass.dat", "r");
    char s[25], pass[25];
    system("cls");
    printf("Enter Password : ");

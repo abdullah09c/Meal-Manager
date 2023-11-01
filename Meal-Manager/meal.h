@@ -30,8 +30,8 @@ char *date_fun()
 void final_meal(int n)
 {
    FILE *deposit = NULL, *cost = NULL;
-   deposit = fopen("data/data.dat", "r");
-   cost = fopen("data/cost.dat", "r");
+   deposit = fopen("data.dat", "r");
+   cost = fopen("cost.dat", "r");
    double total_cost = 0, total_deposit = 0, total_meal = 0, meal_rate = 0, remaining = 0;
    while (fscanf(deposit, "%d %s %lf %lf\n", &view.sl, view.name, &view.deposit, &view.total_meal) != EOF)
    {
@@ -60,7 +60,7 @@ up:
    }
    printf("Deposit \t Total Meal \t Remaining\n");
    FILE *data = NULL;
-   data = fopen("data/data.dat", "r");
+   data = fopen("data.dat", "r");
    while (fscanf(data, "%d %s %lf %lf\n", &view.sl, view.name, &view.deposit, &view.total_meal) != EOF)
    {
       printf(" %d       %s", view.sl, view.name);
@@ -81,7 +81,7 @@ up:
       printf("\tTotal Deposit = %.2lf\n", total_deposit);
       printf("\tTotal Cost = %.2lf\n", total_cost);
       printf("\tTotal Meal = %.1lf\n", total_meal);
-      printf("\tTotal Meal Rate = %.2lf\n", meal_rate);
+      printf("\tCurrent Meal Rate = %.2lf\n", meal_rate);
 
       printf("\n\n\t\tPress E to exit!");
 
@@ -110,7 +110,7 @@ up:
    printf("BreakFast \t Launch \t Dinner\n\n");
    FILE *meal = NULL;
    double breakfast, launch, dinner;
-   meal = fopen("data/meal.dat", "r");
+   meal = fopen("meal.dat", "r");
    while (fscanf(meal, "%d %s %lf %lf %lf\n", &view.sl, view.name, &breakfast, &launch, &dinner) != EOF)
    {
       printf(" %d       %s", view.sl, view.name);
@@ -145,9 +145,9 @@ up:
    {
       FILE *data = NULL, *meal = NULL;
       FILE *new = NULL;
-      data = fopen("data/data.dat", "r");
-      new = fopen("data/new_.dat", "w");
-      meal = fopen("data/meal.dat", "w");
+      data = fopen("data.dat", "r");
+      new = fopen("new_.dat", "w");
+      meal = fopen("meal.dat", "w");
 
       while (fscanf(data, "%d %s %lf %lf\n", &update.sl, update.name, &update.deposit, &update.total_meal) != EOF)
       {
@@ -158,8 +158,8 @@ up:
       fclose(data);
       fclose(meal);
       fclose(new);
-      remove("data/data.dat");
-      rename("data/new_.dat", "data/data.dat");
+      remove("data.dat");
+      rename("new_.dat", "data.dat");
       system("cls");
       printf("Meal Update Successfully!");
       getche();
@@ -191,10 +191,10 @@ up:
    printf("\t\t3. Dinner\n");
    printf("\t\tEnter : ");
    scanf("%d", &choice);
-   FILE *meal = fopen("data/meal.dat", "r"), *new_meal = NULL;
-   new_meal = fopen("data/new_meal.dat", "w");
-   FILE *data = fopen("data/data.dat", "r"), *new_data = NULL;
-   new_data = fopen("data/new_data.dat", "w");
+   FILE *meal = fopen("meal.dat", "r"), *new_meal = NULL;
+   new_meal = fopen("new_meal.dat", "w");
+   FILE *data = fopen("data.dat", "r"), *new_data = NULL;
+   new_data = fopen("new_data.dat", "w");
    while (fscanf(meal, "%d %s %lf %lf %lf\n", &edit.sl, edit.name, &breakfast, &launch, &dinner) != EOF)
    {
       char sl[30];
@@ -230,17 +230,17 @@ up:
       system("cls");
       system("color 4");
       printf("\tMember doesn't exist\n\a");
-      remove("data/new_meal.dat");
-      remove("data/new_data.dat");
+      remove("new_meal.dat");
+      remove("new_data.dat");
       getche();
       goto up;
    }
    else
    {
-      remove("data/meal.dat");
-      remove("data/data.dat");
-      rename("data/new_meal.dat", "data/meal.dat");
-      rename("data/new_data.dat", "data/data.dat");
+      remove("meal.dat");
+      remove("data.dat");
+      rename("new_meal.dat", "meal.dat");
+      rename("new_data.dat", "data.dat");
       system("cls");
       printf("\tSuccessful!\n");
       getche();

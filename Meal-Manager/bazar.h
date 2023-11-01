@@ -5,7 +5,7 @@ void add_bazar()
    system("cls");
    double bazar_cost;
    char name[30];
-   FILE *cost = fopen("data/cost.dat", "a+");
+   FILE *cost = fopen("cost.dat", "a+");
    while (fscanf(cost, "%d %lf %s %s\n", &bazar.sl, &bazar.cost, bazar.name, bazar.date) != EOF)
    {
       bazar.sl;
@@ -40,7 +40,7 @@ void view_bazar()
    }
    printf("Bazar Cost\t Date\n");
    FILE *cost = NULL;
-   cost = fopen("data/cost.dat", "r");
+   cost = fopen("cost.dat", "r");
    while (fscanf(cost, "%d %lf %s %s\n", &view.sl, &view.cost, view.name, view.date) != EOF)
    {
       printf(" %d       %s", view.sl, view.name);

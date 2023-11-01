@@ -55,7 +55,7 @@ int main()
    char s[100];
 top:
    FILE *password = NULL;
-   password = fopen("data/pass.dat", "r");
+   password = fopen("pass.dat", "r");
    char pass[30];
    fscanf(password, "%s\n", pass);
    if (!strcmp(pass, "-1") || password == NULL)
