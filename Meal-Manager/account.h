@@ -17,7 +17,7 @@ void welcome(int i)
    FILE *acc = fopen("acc.dat", "r");
    int day;
    char name[30];
-   fscanf(acc, "%s", name);
+   fscanf(acc, "%[^.]c", name);
    printf("\tDATE : %s", date_fun());
    if (i == 1)
       printf("\n\tAssalamu Alaykum %s,\n\n", name);
@@ -119,7 +119,7 @@ void account()
    printf("\tCreate New Account\n");
    printf("\t---------------------------------------------\n\n");
    printf("\tEnter Manager Name : ");
-   scanf("%s", manager_name);
+   scanf(" %[^\n]c", manager_name);
    printf("\tEnter New Password : ");
    scanf("%s", pass);
    printf("\tEnter Your Hobby (This will help you to recover forgotten password): ");
@@ -128,7 +128,7 @@ void account()
    password = fopen("pass.dat", "w");
    fprintf(password, "%s", pass);
 
-   fprintf(account_data, "%s %s\n", manager_name, recover);
+   fprintf(account_data, "%s. %s\n", manager_name, recover);
    fclose(password);
    fclose(account_data);
    system("cls");
