@@ -8,7 +8,8 @@ void help()
    printf("\t\t\t\tTIPS\n");
    printf("\t---------------------------------------------------\n");
    printf("\t-> To increase or decrease font size press Ctrl+Mouse Scroll\n");
-   printf("\t-> Press F11 for Fullscreen\n");
+   printf("\t-> Press F11 for Fullscreen\n\n");
+   printf("\t  Press Enter...\n");
    getche();
 }
 
