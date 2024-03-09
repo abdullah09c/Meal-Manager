@@ -17,14 +17,13 @@ struct member
    int sl;
 } add, view, update, edit, bazar;
 
-char *date_fun()
+char* date_fun()
 {
    time_t d = time(NULL);
    struct tm *dt = localtime(&d);
-   char date[30], *ptr;
-   strftime(date, sizeof(date), "%x", dt);
-   ptr = date;
-   return ptr;
+   char* date = (char*)malloc(30 * sizeof(char));
+   strftime(date, 30, "%x", dt);
+   return date;
 }
 
 void final_meal(int n)
